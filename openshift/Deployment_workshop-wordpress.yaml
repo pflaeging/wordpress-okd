@@ -1,0 +1,70 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: workshop-wordpress
+  labels:
+    app: workshop-wordpress
+    pflaeging.net/instance: workshop
+    app.kubernetes.io/component: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/part-of: workshop-wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workshop-wordpress
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: workshop-wordpress
+    spec:
+      volumes:
+        - name: workshop-config
+          configMap:
+            name: workshop-config
+            defaultMode: 420
+        - name: workshop-wp-content
+          persistentVolumeClaim:
+            claimName: workshop-wp-content
+      containers:
+        - name: wordpress-container
+          image: image-registry.openshift-image-registry.svc:5000/brz-test/wordpress-container:latest
+          envFrom:
+            - secretRef:
+                name: workshop-database
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: workshop-config
+                  key: DB_HOST
+          volumeMounts:
+            - name: workshop-config
+              readOnly: true
+              mountPath: /opt/wordpress/wp-config.php
+              subPath: wp-config.php
+            - name: workshop-wp-content
+              mountPath: /opt/wordpress/wp-content/
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

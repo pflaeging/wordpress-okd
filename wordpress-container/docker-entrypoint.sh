@@ -10,4 +10,11 @@ else
     sed -i s/^$(id -u)/runner/ /etc/passwd
 fi
 
+# if there's no /opt/wordpress/wp-content/themes/, there's no content on PV
+if [ -d /opt/wordpress/wp-content/themes/ ]; then
+    echo "Assuming PV has data"
+else
+    cp -r /opt/wordpress/wp-content.install/* /opt/wordpress/wp-content/
+fi
+
 exec "$@"

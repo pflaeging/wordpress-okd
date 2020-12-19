@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: workshop-wp-content
+  labels:
+    app: wordpress
+    pflaeging.net/instance: workshop
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 200Mi
+  storageClassName: rook-cephfs
+  volumeMode: Filesystem

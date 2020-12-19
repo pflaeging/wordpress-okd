@@ -3,29 +3,27 @@ apiVersion: v1
 metadata:
   name: workshop-config
 data:
-  DB_HOST: workshop-mysql-service
-  wp-config.php: >-
+  DB_HOST: workshop-mariadb
+  wp-config.php: |-
+    <?php
     define( 'DB_NAME', getenv('MYSQL_DATABASE') );
     define( 'DB_USER', getenv('MYSQL_USER') );
     define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD') );
     define( 'DB_HOST', getenv('DB_HOST') );
     define( 'DB_CHARSET', '' );
     define( 'DB_COLLATE', 'utf8_general_ci' );
-    /* you can get keys by calling:
-    https://api.wordpress.org/secret-key/1.1/salt/ */
-    define('AUTH_KEY',        
-    ';YFFK+QpPv0|(1L)fn~O-%)e55$>/(.jR0mvnMd>?f7*5q{W<!yQ+d0|2lu(sgat');
-    define('SECURE_AUTH_KEY',  ':
-    SV$mW:+#Nv-OZtuYv?z=}LG#(x{Wa3(uSoT%^+hX7rx?{yOccSU=9)5ENOrDlG');
-    define('LOGGED_IN_KEY',   
-    'JJTJ&nph)y6FqN875=;C@l@LV76+/xCAk#8(_/YCOWfLjjKq;+90ssA!H,V/A!zo');
-    define('NONCE_KEY',        'W35!v`l;aN6PsVV8tcm9:eZp/Vm*E~LE;6:Asc f3fVz1`3a
-    A*=4j-bN7+Wa(/]');
-    define('AUTH_SALT',       
-    '][Kx:Vdmxsl>YQR-t4J4eXwt%R}F7D6^>p9L+Z|u_,PJ?-+dA0,<J1L%3yhiPp{|');
-    define('SECURE_AUTH_SALT', ')U=Y$mKaG$
-    ep}pp/s@!hA06mn*7g(vhYym}0zN##EB]idSpLYS[f,H*]<A-pN2R');
-    define('LOGGED_IN_SALT',  
-    '?T4_B9Jpy=vXn]MiJ_]fe&JH*JnD=`-Yx@eXwTQ]>,5[Tc;zu&#X2s8?>YJ,K7Uq');
-    define('NONCE_SALT',      
-    '[1Up1QgQb$Iqi/OGR9c~+|(rLhQ+|lk(rn+*W3@j9)2Zac2NiGS-?gxQPXWar]|P');
+    /* you can get keys by calling: https://api.wordpress.org/secret-key/1.1/salt/ */
+    define('AUTH_KEY', ';YFFK+QpPv0|(1L)fn~O-%)e55$>/(.jR0mvnMd>?f7*5q{W<!yQ+d0|2lu(sgat' );
+    define('SECURE_AUTH_KEY', ':SV$mW:+#Nv-OZtuYv?z=}LG#(x{Wa3(uSoT%^+hX7rx?{yOccSU=9)5ENOrDlG' );
+    define('LOGGED_IN_KEY', 'JJTJ&nph)y6FqN875=;C@l@LV76+/xCAk#8(_/YCOWfLjjKq;+90ssA!H,V/A!zo' );
+    define('NONCE_KEY', 'W35!v`l;aN6PsVV8tcm9:eZp/Vm*E~LE;6:Asc f3fVz1`3aA*=4j-bN7+Wa(/]' );
+    define('AUTH_SALT', '][Kx:Vdmxsl>YQR-t4J4eXwt%R}F7D6^>p9L+Z|u_,PJ?-+dA0,<J1L%3yhiPp{|');
+    define('SECURE_AUTH_SALT', ')U=Y$mKaG$ep}pp/s@!hA06mn*7g(vhYym}0zN##EB]idSpLYS[f,H*]<A-pN2R' );
+    define('LOGGED_IN_SALT', '?T4_B9Jpy=vXn]MiJ_]fe&JH*JnD=`-Yx@eXwTQ]>,5[Tc;zu&#X2s8?>YJ,K7Uq' );
+    define('NONCE_SALT', '[1Up1QgQb$Iqi/OGR9c~+|(rLhQ+|lk(rn+*W3@j9)2Zac2NiGS-?gxQPXWar]|P' );
+    $table_prefix = 'wp_';
+    define( 'WP_DEBUG', false );
+    if ( ! defined( 'ABSPATH' ) ) {
+            define( 'ABSPATH', __DIR__ . '/' );
+    }
+    require_once ABSPATH . 'wp-settings.php';

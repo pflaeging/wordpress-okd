@@ -1,0 +1,22 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: workshop-wordpress
+  labels:
+    app: wordpress-container
+    app.kubernetes.io/component: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/part-of: workshop-wordpress
+    pflaeging.net/instance: workshop
+spec:
+  host: workshop-wordpress-brz-test.apps.fangorn.pfpk.pro
+  to:
+    kind: Service
+    name: workshop-wordpress
+    weight: 100
+  port:
+    targetPort: http-alternate
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+  wildcardPolicy: None

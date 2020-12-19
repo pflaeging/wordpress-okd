@@ -12,7 +12,7 @@ LABEL summary="Wordpress" \
 
 # Install apache and http
 RUN dnf --disableplugin=subscription-manager -y module enable php:7.4 \
-  && dnf --disableplugin=subscription-manager -y install httpd php procps-ng mariadb-connector-c php-mysqlnd \
+  && dnf --disableplugin=subscription-manager -y install httpd php procps-ng mariadb-connector-c php-mysqlnd iputils\
   && dnf --disableplugin=subscription-manager clean all
 
 # make passwd group writeable and set permissions
@@ -27,7 +27,8 @@ ADD wordpress.tar.gz /opt
 
 WORKDIR /opt/wordpress
 
-RUN chgrp root /opt/wordpress/wp-content; chmod g=rwx /opt/wordpress/wp-content \
+RUN mv /opt/wordpress/wp-content /opt/wordpress/wp-content.install ; mkdir /opt/wordpress/wp-content \
+  && chgrp root /opt/wordpress/wp-content; chmod g=rwx /opt/wordpress/wp-content \
   && rm -rf /var/www/html ; ln -s /opt/wordpress /var/www/html
 
 ADD docker-entrypoint.sh /opt/sbin/

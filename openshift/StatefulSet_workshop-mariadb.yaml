@@ -1,0 +1,57 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: workshop-mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workshop-mariadb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: workshop-mariadb
+    spec:
+      containers:
+        - name: mariadb
+          image: image-registry.openshift-image-registry.svc:5000/brz-test/mariadb-103-centos7:latest
+          envFrom:
+            - secretRef:
+                name: workshop-database
+          ports:
+            - name: mysql
+              containerPort: 3306
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: workshop-mariadb
+              mountPath: /var/lib/mysql
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 10
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  volumeClaimTemplates:
+    - metadata:
+        name: workshop-mariadb
+        labels:
+          app: mariadb
+          pflaeging.net/instance: workshop
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: rook-ceph-block
+        volumeMode: Filesystem
+        resources:
+          requests:
+            storage: 200Mi

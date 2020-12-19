@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: workshop-mariadb
+  labels:
+    app: wordpress-mariadb
+    pflaeging.net/instance: workshop
+    app.kubernetes.io/component: wordpress
+    app.kubernetes.io/instance: wordpress
+    app.kubernetes.io/part-of: workshop-wordpress
+spec:
+  ports:
+    - name: mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: workshop-mariadb
+  type: ClusterIP
+  sessionAffinity: None
+
