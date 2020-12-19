@@ -12,7 +12,7 @@ LABEL summary="Wordpress" \
 
 # Install apache and http
 RUN dnf --disableplugin=subscription-manager -y module enable php:7.4 \
-  && dnf --disableplugin=subscription-manager -y install httpd php procps-ng \
+  && dnf --disableplugin=subscription-manager -y install httpd php procps-ng mariadb-connector-c\
   && dnf --disableplugin=subscription-manager clean all
 
 # make passwd group writeable and set permissions
