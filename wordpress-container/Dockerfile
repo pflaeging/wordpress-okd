@@ -27,6 +27,7 @@ ADD wordpress.tar.gz /opt
 
 WORKDIR /opt/wordpress
 
+RUN touch /opt/wordpress/wp-config.php; chgrp 0 /opt/wordpress/wp-config.php ; chmod g+w /opt/wordpress/wp-config.php
 RUN mv /opt/wordpress/wp-content /opt/wordpress/wp-content.install ; mkdir /opt/wordpress/wp-content \
   && chgrp root /opt/wordpress/wp-content; chmod g=rwx /opt/wordpress/wp-content \
   && rm -rf /var/www/html ; ln -s /opt/wordpress /var/www/html
