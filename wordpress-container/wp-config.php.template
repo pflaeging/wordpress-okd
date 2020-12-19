@@ -14,7 +14,7 @@
     define('LOGGED_IN_SALT', '_LOGGED_IN_SALT_' );
     define('NONCE_SALT', '_NONCE_SALT_' );
     $table_prefix = 'wp_';
-    define( 'WP_DEBUG', '_WP_DEBUG_' );
+    define( 'WP_DEBUG', _WP_DEBUG_ );
     if ( ! defined( 'ABSPATH' ) ) {
             define( 'ABSPATH', __DIR__ . '/' );
     }

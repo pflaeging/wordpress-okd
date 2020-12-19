@@ -1,0 +1,42 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: wordpress-container
+  labels:
+    app: wordpress-container
+    app.kubernetes.io/component: wordpress-container
+    app.kubernetes.io/instance: wordpress-container
+    app.kubernetes.io/part-of: wordpress
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'wordpress-container:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://gitlab.pflaeging.net/pflaeging-net/wordpress-okd.git'
+      ref: master
+    contextDir: /wordpress-container
+    sourceSecret:
+      name: peter-gitlab
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: wordpress-container-generic-webhook-secret
+    - type: GitLab
+      gitlab:
+        secretReference:
+          name: wordpress-container-gitlab-webhook-secret
+    - type: ConfigChange
+  runPolicy: Serial
