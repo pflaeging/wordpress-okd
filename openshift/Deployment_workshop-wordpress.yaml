@@ -20,10 +20,6 @@ spec:
         app: workshop-wordpress
     spec:
       volumes:
-        - name: workshop-config
-          configMap:
-            name: workshop-config
-            defaultMode: 420
         - name: workshop-wp-content
           persistentVolumeClaim:
             claimName: workshop-wp-content
@@ -33,6 +29,8 @@ spec:
           envFrom:
             - secretRef:
                 name: workshop-database
+            - configMapRef:
+                name: workshop-config
           env:
             - name: DB_HOST
               valueFrom:
@@ -40,10 +38,6 @@ spec:
                   name: workshop-config
                   key: DB_HOST
           volumeMounts:
-            - name: workshop-config
-              readOnly: true
-              mountPath: /opt/wordpress/wp-config.php
-              subPath: wp-config.php
             - name: workshop-wp-content
               mountPath: /opt/wordpress/wp-content/
           resources:

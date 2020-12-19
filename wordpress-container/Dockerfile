@@ -32,6 +32,7 @@ RUN mv /opt/wordpress/wp-content /opt/wordpress/wp-content.install ; mkdir /opt/
   && rm -rf /var/www/html ; ln -s /opt/wordpress /var/www/html
 
 ADD docker-entrypoint.sh /opt/sbin/
+ADD wp-config.php.template
 RUN chmod 755 /opt/sbin/docker-entrypoint.sh
 
 EXPOSE 8080
