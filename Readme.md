@@ -29,12 +29,15 @@ First install the bitbucket pull secret for the BRZ repo: `oc apply -f Secret_bi
 
 ## get a suitable mariadb container
 
-```shell
-podman pull quay.io/centos7/mariadb-103-centos7:latest
-oc create imagestream mariadb-103-centos7
-podman tag quay.io/centos7/mariadb-103-centos7:latest default-route-openshift-image-registry.apps.fangorn.pfpk.pro/brz-ws-paas/mariadb-103-centos7:latest
-podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.fangorn.pfpk.pro 
-```
+- The easy way: `oc import-image quay.io/centos7/mariadb-103-centos7:latest --confirm`
+- The complete way:
+
+        ```shell
+        podman pull quay.io/centos7/mariadb-103-centos7:latest
+        oc create imagestream mariadb-103-centos7
+        podman tag quay.io/centos7/mariadb-103-centos7:latest default-route-openshift-image-registry.apps.fangorn.pfpk.pro/brz-ws-paas/mariadb-103-centos7:latest
+        podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.fangorn.pfpk.pro 
+        ```
 
 ## create Openshift / OKD objects
 

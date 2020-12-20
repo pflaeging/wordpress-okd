@@ -18,6 +18,7 @@ spec:
       creationTimestamp: null
       labels:
         app: workshop-wordpress
+        pod.cp.cna.at/ingress: allow
     spec:
       volumes:
         - name: workshop-wp-content

@@ -50,7 +50,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: fc-block-ldisk-prz-delete
+        storageClassName: netapp-trident-prz-delete
         volumeMode: Filesystem
         resources:
           requests:
