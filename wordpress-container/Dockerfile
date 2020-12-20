@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi
+FROM image-registry.openshift-image-registry.svc:5000/cp-baseimages/brz-cp-ubi:latest
 
 LABEL summary="Wordpress" \
       description="Wordpress container" \

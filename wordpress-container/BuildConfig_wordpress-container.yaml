@@ -30,11 +30,11 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://gitlab.pflaeging.net/pflaeging-net/wordpress-okd.git'
-      ref: master
+      uri: 'ssh://git@git.brz.gv.at:7999/paascp/wordpress-okd.git'
+      ref: brz-ws
     contextDir: /wordpress-container
     sourceSecret:
-      name: peter-gitlab
+      name: bitbucket-pull-ssh
   triggers:
     - type: Generic
       generic:

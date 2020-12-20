@@ -4,12 +4,12 @@ metadata:
   name: workshop-wp-content
   labels:
     app: wordpress
-    pflaeging.net/instance: workshop
+    cp.cna.at/instance: workshop
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 200Mi
-  storageClassName: rook-cephfs
+  storageClassName: netapp-trident-prz-delete
   volumeMode: Filesystem

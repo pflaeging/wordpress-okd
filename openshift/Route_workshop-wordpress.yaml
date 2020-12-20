@@ -7,9 +7,8 @@ metadata:
     app.kubernetes.io/component: wordpress
     app.kubernetes.io/instance: wordpress
     app.kubernetes.io/part-of: workshop-wordpress
-    pflaeging.net/instance: workshop
+    cp.cna.at/instance: workshop
 spec:
-  host: workshop-wordpress-brz-test.apps.fangorn.pfpk.pro
   to:
     kind: Service
     name: workshop-wordpress

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mariadb
-          image: image-registry.openshift-image-registry.svc:5000/brz-test/mariadb-103-centos7:latest
+          image: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/mariadb-103-centos7:latest
           envFrom:
             - secretRef:
                 name: workshop-database
@@ -46,11 +46,11 @@ spec:
         name: workshop-mariadb
         labels:
           app: mariadb
-          pflaeging.net/instance: workshop
+          cp.cna.at/instance: workshop
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: rook-ceph-block
+        storageClassName: fc-block-ldisk-prz-delete
         volumeMode: Filesystem
         resources:
           requests:

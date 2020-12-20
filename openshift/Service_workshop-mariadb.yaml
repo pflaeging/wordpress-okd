@@ -4,7 +4,7 @@ metadata:
   name: workshop-mariadb
   labels:
     app: wordpress-mariadb
-    pflaeging.net/instance: workshop
+    cp.cna.at/instance: workshop
     app.kubernetes.io/component: wordpress
     app.kubernetes.io/instance: wordpress
     app.kubernetes.io/part-of: workshop-wordpress

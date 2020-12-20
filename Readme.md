@@ -10,14 +10,18 @@ The goals were:
 - make it customizable in wordpress: plug-ins, themes, ...
 - updates of the core wordpress should require a container rebuild
 - container builds via openshift docker builds
+
 ## Implement a secure clean wordpress installation
 
-Always inspect all th yaml files first:
+Always inspect all the yaml files first:
 
 - look for object names
 - ConfigMap and Secret values
 - play special attention to the image paths!
+
 ## make wordpress container
+
+First install the bitbucket pull secret for the BRZ repo: `oc apply -f Secret_bitbucket-pull-ssh.yaml`
 
 - download wordpress `curl -L -o wordpress-container/wordpress.tar.gz https://wordpress.org/latest.tar.gz`
 - run a docker build in the ./wordpress-container/ dir or
@@ -28,7 +32,7 @@ Always inspect all th yaml files first:
 ```shell
 podman pull quay.io/centos7/mariadb-103-centos7:latest
 oc create imagestream mariadb-103-centos7
-podman tag quay.io/centos7/mariadb-103-centos7:latest default-route-openshift-image-registry.apps.fangorn.pfpk.pro/brz-test/mariadb-103-centos7:latest
+podman tag quay.io/centos7/mariadb-103-centos7:latest default-route-openshift-image-registry.apps.fangorn.pfpk.pro/brz-ws-paas/mariadb-103-centos7:latest
 podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.fangorn.pfpk.pro 
 ```
 
@@ -44,4 +48,6 @@ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-re
 ---
 Peter Pfläging <peter@pflaeging.net>
 
-https://www.pflaeging.net
+Public Source: <https://github.com/pflaeging/wordpress-okd.git>
+
+<https://www.pflaeging.net>

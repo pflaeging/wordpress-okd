@@ -4,7 +4,7 @@ metadata:
   name: workshop-wordpress
   labels:
     app: workshop-wordpress
-    pflaeging.net/instance: workshop
+    cp.cna.at/instance: workshop
     app.kubernetes.io/component: wordpress
     app.kubernetes.io/instance: wordpress
     app.kubernetes.io/part-of: workshop-wordpress
@@ -25,7 +25,7 @@ spec:
             claimName: workshop-wp-content
       containers:
         - name: wordpress-container
-          image: image-registry.openshift-image-registry.svc:5000/brz-test/wordpress-container:latest
+          image: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container:latest
           envFrom:
             - secretRef:
                 name: workshop-database
