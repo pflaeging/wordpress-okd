@@ -1,4 +1,16 @@
-# Implement a secure clean wordpress installation
+# Wordpress OKD / Openshift implementation
+
+This project is trying to implement an easy and secure way for Wordpress on Openshift / OKD
+
+The goals were:
+
+- Use reliable base images (UBI8 & CentOS)
+- make upgrades easy
+- make it easy to understand (it's also part of an Openshift Workshop)
+- make it customizable in wordpress: plug-ins, themes, ...
+- updates of the core wordpress should require a container rebuild
+- container builds via openshift docker builds
+## Implement a secure clean wordpress installation
 
 Always inspect all th yaml files first:
 
@@ -28,3 +40,7 @@ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-re
 
 - Look to the Route element
 - Go for http first, https and Wordpress is not so easy ;-)
+
+---
+Peter Pfläging <peter@pflaeging.net>
+https://www.pflaeging.net
