@@ -10,6 +10,7 @@ LABEL summary="Wordpress" \
       version="1.0" \
       maintainer="Peter Pfläging <peter@pflaeging.net>"
 
+USER 0
 # Install apache and http
 RUN dnf --disableplugin=subscription-manager -y module enable php:7.4 \
   && dnf --disableplugin=subscription-manager -y install httpd php procps-ng mariadb-connector-c php-mysqlnd iputils\
