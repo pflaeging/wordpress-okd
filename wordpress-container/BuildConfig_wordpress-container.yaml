@@ -9,11 +9,17 @@ metadata:
     app.kubernetes.io/part-of: wordpress
 spec:
   nodeSelector: null
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
   output:
     to:
       kind: ImageStreamTag
       name: 'wordpress-container:latest'
-  resources: {}
   successfulBuildsHistoryLimit: 5
   failedBuildsHistoryLimit: 5
   strategy:
