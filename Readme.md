@@ -43,4 +43,5 @@ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-re
 
 ---
 Peter Pfläging <peter@pflaeging.net>
+
 https://www.pflaeging.net
