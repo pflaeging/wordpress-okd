@@ -43,10 +43,10 @@ spec:
               mountPath: /opt/wordpress/wp-content/
           resources:
             requests:
-              cpu: "500m"
+              cpu: "300m"
               memory: "512Mi"
             limits:
-              cpu: "500m"
+              cpu: "300m"
               memory: "512Mi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File

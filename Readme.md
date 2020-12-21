@@ -25,7 +25,9 @@ First install the bitbucket pull secret for the BRZ repo: `oc apply -f Secret_bi
 
 - download wordpress `curl -L -o wordpress-container/wordpress.tar.gz https://wordpress.org/latest.tar.gz`
 - run a docker build in the ./wordpress-container/ dir or
+- `oc apply -f wordpress-container/ImageStream_wordpress-container.yaml`
 - `oc apply -f wordpress-container/BuildConfig_wordpress-container.yaml`
+
 
 ## get a suitable mariadb container
 
