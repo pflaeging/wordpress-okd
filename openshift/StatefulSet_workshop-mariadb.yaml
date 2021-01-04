@@ -41,6 +41,7 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
+      serviceName: workshop-mariadb
   volumeClaimTemplates:
     - metadata:
         name: workshop-mariadb
