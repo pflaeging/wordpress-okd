@@ -4,6 +4,7 @@ metadata:
   name: workshop-mariadb
 spec:
   replicas: 1
+  serviceName: workshop-mariadb
   selector:
     matchLabels:
       app: workshop-mariadb
@@ -41,7 +42,6 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
-      serviceName: workshop-mariadb
   volumeClaimTemplates:
     - metadata:
         name: workshop-mariadb
