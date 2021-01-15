@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - mariadb
+  - wordpress
+
+vars:
+- name: MARIADB_SERVICE_HOST
+  objref:
+    kind: Service
+    name: mariadb
+    apiVersion: v1
+  fieldref:
+    fieldpath: metadata.name
