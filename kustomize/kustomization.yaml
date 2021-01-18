@@ -46,7 +46,7 @@ patchesStrategicMerge:
     metadata:
       name: wp-content
     spec:
-      storageClassName: netapp-trident-brz-delete
+      storageClassName: rook-cephfs
   - |-
     kind: StatefulSet
     apiVersion: apps/v1
@@ -57,7 +57,7 @@ patchesStrategicMerge:
       - metadata:
           name: mariadb
         spec:
-          storageClassName: netapp-trident-brz-delete
+          storageClassName: rook-ceph-block
           volumeMode: Filesystem
           accessModes: 
             - ReadWriteOnce
@@ -71,5 +71,5 @@ images:
   newName: image-registry.openshift-image-registry.svc:5000/sb/mariadb-103-centos7
   newTag: latest
 - name: quay.io/pflaeging/wordpress-okd
-  newName: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container
+  newName: image-registry.openshift-image-registry.svc:5000/sb/wordpress-okd
   newTag: latest

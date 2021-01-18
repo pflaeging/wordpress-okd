@@ -50,6 +50,10 @@ First install the bitbucket pull secret for the BRZ repo: `oc apply -f Secret_bi
 - Look to the Route element
 - Go for http first, https and Wordpress is not so easy ;-)
 
+## Kustomize
+
+If you want to deliver the container with ArgoCD, simply copy the directory `kustomize` to your delivery repo. Now you can deliver and deploy with ArgoCD.
+
 ---
 Peter Pfläging <peter@pflaeging.net>
 
