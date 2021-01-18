@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- base
+
+# define a common label for your app!
+commonLabels:
+  app.kubernetes.io/part-of: testpress
+# set a name prefix
+namePrefix: testpress-
+
+# add a hostname for a route. If not specified, it will be generated
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/host
+        value: testpress.imhere.net
+    target:
+      kind: Route
+      name: wordpress
+# optional: enable openshift-acme on the route
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: 
+          kubernetes.io/tls-acme: 'true'
+    target:
+      kind: Route
+      name: wordpress
+
+# replace default images with local versions
+images:
+- name: quay.io/keycloak/keycloak
+  newName: image-registry.openshift-image-registry.svc:5000/stickiebox-develop/keycloak
+  newTag: latest
+- name: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container
+  newName: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container
+  newTag: latest
