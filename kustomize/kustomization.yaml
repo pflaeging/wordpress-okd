@@ -28,12 +28,48 @@ patches:
     target:
       kind: Route
       name: wordpress
+# optional: add label to pod
+  - patch: |-
+      - op: add
+        path: /spec/template/metadata/labels
+        value:
+          pflaeging.net/expose: route
+    target:
+      kind: Deployment
+      name: wordpress
+
+# patch storageclasses
+patchesStrategicMerge:
+  - |-
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: wp-content
+    spec:
+      storageClassName: netapp-trident-brz-delete
+  - |-
+    kind: StatefulSet
+    apiVersion: apps/v1
+    metadata:
+      name: mariadb
+    spec:
+      volumeClaimTemplates:
+      - metadata:
+          name: mariadb
+        spec:
+          storageClassName: netapp-trident-brz-delete
+          volumeMode: Filesystem
+          accessModes: 
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 200Mi
 
 # replace default images with local versions
 images:
-- name: quay.io/keycloak/keycloak
-  newName: image-registry.openshift-image-registry.svc:5000/stickiebox-develop/keycloak
+- name: docker.io/centos/mariadb-103-centos7
+  newName: image-registry.openshift-image-registry.svc:5000/sb/mariadb-103-centos7
   newTag: latest
-- name: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container
+- name: quay.io/pflaeging/wordpress-okd
   newName: image-registry.openshift-image-registry.svc:5000/brz-ws-paas/wordpress-container
   newTag: latest

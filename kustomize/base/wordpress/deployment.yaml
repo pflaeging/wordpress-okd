@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: workshop-wordpress
+  name: wordpress
 spec:
   replicas: 1
   selector:
@@ -19,7 +19,7 @@ spec:
             claimName: wp-content
       containers:
         - name: wordpress-container
-          image: image-registry.openshift-image-registry.svc:5000/brz-test/wordpress-container:latest
+          image: quay.io/pflaeging/wordpress-okd:latest
           envFrom:
             - secretRef:
                 name: database
